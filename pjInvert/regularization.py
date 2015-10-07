@@ -25,7 +25,7 @@ class flat(object):
         '''
         create the Wd matrix DTD
         '''
-        return self.D.T*self.D
+        return np.dot(self.D.T,self.D)
 
 class epsilon(object):
     """

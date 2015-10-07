@@ -9,6 +9,7 @@ USF Geodesy Fall 2015
 Nick Voss
 """
 from numpy.linalg import inv
+import numpy as np 
 import pandas as pd 
 
 def weightedLeastSquares(greensfnc,Wm,We,epsilon,m_init,data):
@@ -26,16 +27,15 @@ def weightedLeastSquares(greensfnc,Wm,We,epsilon,m_init,data):
         m_est = estmates model paramaters 
     '''
     #make first hald of equation
-    G = greensfnc.as_matrix()
-    GT = greensfnc.transpose().as_matrix()
-    first = GT*Wm*G + epsilon.squared()*Wm
+    G = greensfnc.matrixDF.as_matrix()
+    GT = greensfnc.matrixDF.transpose().as_matrix()
+    first = np.dot(np.dot(GT,We),G) + np.dot(epsilon.square(),Wm)
     firstInv = inv(first)
     #make second half
-    second = GT*We*data.values + epsilon.squared()*Wm*m_init.values
-    solution = firstInv*second
+    second = np.dot(np.dot(GT,We),data.dataS.values) + np.dot(np.dot(epsilon.square(),Wm),m_init.modelS.values)
+    solution = np.dot(firstInv,second)
     #make m object from solution
-    m_est = pd.Series(solution,index = m_init.index)
+    m_est = pd.Series(solution,index = m_init.modelS.index)
     return m_est
-    
     
     
