@@ -5,7 +5,7 @@ Class for holding greens functions for inversion problems
 USF geodesy Fall 2015
 
 Nick Voss
-"""'
+"""
 import pandas as pd
 
 class greenfnc(object):
@@ -21,7 +21,7 @@ class greenfnc(object):
     """
     def __init__(self, name,matrixDF):
         self.name = name
-        self.matrixDF = martixDF
+        self.matrixDF = matrixDF
     
     def transpose(self):
         return self.matrixDF.transpose()
