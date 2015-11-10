@@ -37,5 +37,21 @@ def weightedLeastSquares(greensfnc,Wm,We,epsilon,m_init,data):
     #make m object from solution
     m_est = pd.Series(solution,index = m_init.modelS.index)
     return m_est
+
+def LeastSquares(greensfnc,data):
+    '''
+    preforms simple Least Squares inversiton 
+    m^<est> = [G^TG]^-1G^Td
+    inputs:
+        greensfnc= greensfngc objet
+        d = data object
+    returns:
+        m_est = estimate of model paramaters
+    '''
+    G = greensfnc.matrixDF.as_matrix()
+    GT = greensfnc.matrixDF.transpose().as_matrix()
+    solution = np.dot(np.dot(inv(np.dot(GT,G)),GT),data.dataS.values)   
+    m_est = pd.Series(solution)
+    return m_est
     
     
