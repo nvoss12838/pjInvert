@@ -23,7 +23,7 @@ class data(object):
         self.dataS = dataS
         self.weights = weightS
     
-    def weight2matirx(self):
+    def weight2matrix(self):
         return np.diag(self.weights)
         
     
